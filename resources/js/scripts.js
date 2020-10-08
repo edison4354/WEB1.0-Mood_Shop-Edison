@@ -36,3 +36,19 @@ data.forEach((mood => {
     // put new div inside items container
     itemsContainer.appendChild(newDiv)
 })) 
+
+const cart = []
+
+function addItem(name, price) {
+    cart.push(name)
+
+}
+
+function showItems() {
+    console.log(cart)
+}
+
+addItem('Apple', 0.99)
+addItem('Orange', 1.29)
+
+showItems()
