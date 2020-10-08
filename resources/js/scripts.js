@@ -1,6 +1,9 @@
 import data from './data.js' //importing the json file
 
 const itemsContainer = document.getElementById('items')
+const itemList = document.getElementById('item-list')
+const cartQty = document.getElementById('cart-qty')
+const cartTotal = document.getElementById('cart-total')
 
 // Displaying all the JSON data into the html file
 // the length of our data determines how many times this loop goes around
@@ -40,6 +43,7 @@ data.forEach((mood => {
 
 const cart = []
 
+//----------------------------------------------------------
 // Add Items
 function addItem(name, price) {
     for (let i = 0; i < cart.length; i += 1) {
@@ -52,21 +56,28 @@ function addItem(name, price) {
     cart.push(item)
 }
 
+//----------------------------------------------------------
 // Show Items
 function showItems() {
     const qty = getQty()
     const total = getTotal()
+    // console.log(`You have ${qty} items in your cart`)
+    cartQty.innerHTML = `You have ${qty} items in your cart`
 
-    console.log(`You have ${qty} items in your cart`)
-    
+    let itemStr = ''
     for (let i = 0; i < cart.length; i+= 1) {
-        console.log(`- ${cart[i].name} $${cart[i].price} x ${cart[i].qty}`)
-    }
+        // console.log(`- ${cart[i].name} $${cart[i].price} x ${cart[i].qty}`)
+        const { name, price, qty } = cart[i]
 
-    console.log(`Total in cart: $${total}`)
+        itemStr += `<li> ${cart[i].name} $${cart[i].price} x ${cart[i].qty} </li>`
+    }
+    itemList.innerHTML = itemStr
+
+    // console.log(`Total in cart: $${total}`)
+    cartTotal.innerHTML = `Total in cart: $${total}`
 }
 
-
+//----------------------------------------------------------
 // Get Qty
 function getQty() {
     let qty = 0
@@ -76,6 +87,7 @@ function getQty() {
     return qty
 }
 
+//----------------------------------------------------------
 // Get total
 function getTotal() {
     let total = 0 
@@ -85,18 +97,25 @@ function getTotal() {
     return total.toFixed(2)
 }
 
+//----------------------------------------------------------
 // Remove Itmes
 function removeItem(name) {
     for (let i = 0; i < cart.length; i += 1) {
         if (cart[i].name === name) {
-            cart.splice(i, 1)
+            if (qty > 0) {
+                cart[i].qty -= qty
+            }
+            if (cart[i.qty < 1 || qty === 0]) {
+                cart.splice(i, 1)
+            }
             return
         }
     }
-
 }
 
 addItem('Apple', 0.99)
 addItem('Orange', 1.29)
 
 showItems()
+
+console.log(itemList)
