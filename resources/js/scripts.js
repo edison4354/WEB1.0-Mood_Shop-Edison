@@ -2,6 +2,7 @@ import data from './data.js' //importing the json file
 
 const itemsContainer = document.getElementById('items')
 
+// Displaying all the JSON data into the html file
 // the length of our data determines how many times this loop goes around
 data.forEach((mood => {
     // create a new div element and give it a class name
@@ -82,6 +83,17 @@ function getTotal() {
         total += cart[i].price * cart[i].qty
     }
     return total.toFixed(2)
+}
+
+// Remove Itmes
+function removeItem(name) {
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name) {
+            cart.splice(i, 1)
+            return
+        }
+    }
+
 }
 
 addItem('Apple', 0.99)
